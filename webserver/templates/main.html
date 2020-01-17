@@ -1,0 +1,112 @@
+<!doctype html>
+<!-- Aalto Weather Station project HTML Page - 2019 -->
+ 
+<html>
+<head>
+    <title>Weather Station</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+    body {
+        text-align: center;
+        padding: 0px;
+        margin: 0px;
+    }
+    .clear:before,
+    .clear:after {
+        content: "";
+        display: table;
+    }
+    .clear:after {
+        clear: both;
+    }
+    .clear {
+        *zoom: 1;
+    }
+    .wrapper {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: 30px;
+        border: 1px solid #cccccc;
+    }
+    .gauge {
+        display: block;
+        float: left;
+    }
+    #g1 {
+        width: 50%;
+    }
+    #g2 {
+        width: 50%;
+    }
+    </style>
+</head>
+<body>
+    Weather station metrics
+    <div class="wrapper clear">
+        <div id="g1" class="gauge" style="width:150px; height:120px"></div>
+        <div id="g2" class="gauge" style="width:150px; height:120px"></div>
+        <div id="g3" class="gauge" style="width:150px; height:120px"></div>
+        <div id="g4" class="gauge" style="width:150px; height:120px"></div>
+    </div>
+    <script src="{{ url_for('static', filename='raphael-2.1.4.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='justgage.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery-1.7.1.min.js') }}"></script>
+    <script>
+      /* Javascript code to initialize the Gages with baseline values */
+      window.onload = function() {
+        var g1, g2, g3, g4;
+  
+        var g1 = new JustGage({
+            id: "g1",
+            value: {{windspeed}},
+            min: 0,
+        max: 50,
+        decimals: 1,
+            title: "Wind Speed",
+        });
+  
+        var g2 = new JustGage({
+            id: "g2",
+            value: {{temperature}},
+            min: -20,
+            max: 100,
+        decimals: 1,
+            title: "Temperature",
+        });
+     
+        var g3 = new JustGage({
+            id: "g3",
+            value: {{humidity}},
+            min: 0,
+            max: 100,
+            decimals: 1,
+            title: "Humidity",
+        });
+  
+        var g4 = new JustGage({
+            id: "g4",
+            value: {{pressure}},
+            min: 800,
+            max: 1200,
+            decimals: 1,
+            title: "Pressure",
+        });
+  
+        /* Update gauges by calling the server REST API /sensors URL */
+        setInterval(function() {
+                $.get('/sensors',
+                      function (newValue) {
+                          values = newValue.split(" ");
+                          g1.refresh(values[0]);
+                          g2.refresh(values[1]);
+                          g3.refresh(values[2]);
+                          g4.refresh(values[3]);
+                      });        
+            }, 2000);
+    };
+    </script>
+</body>
+</html>
