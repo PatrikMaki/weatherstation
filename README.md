@@ -18,23 +18,23 @@ https://wiki.aalto.fi/pages/viewpage.action?pageId=149882850
 
 Installation
 ------------
-Step 1: Install python flask package: sudo pip install flask
-Step 2: weatherserver.zip package
-Step 3: Connect arduino to the Linux
-Step 4: Check with dmesg the usb tty port: dmesg | grep tty|tail
-Step 5: Edit the server.py to use tty file, e.g. INPUTDEVICE='/dev/ttyUSB0'
-Step 6: Start server: ./server.sh
-Step 7: Connect to the server with browser: firefox http://localhost:8080
+- Step 1: Install python flask package: sudo pip install flask
+- Step 2: weatherserver.zip package
+- Step 3: Connect arduino to the Linux
+- Step 4: Check with dmesg the usb tty port: dmesg | grep tty|tail
+- Step 5: Edit the server.py to use tty file, e.g. INPUTDEVICE='/dev/ttyUSB0'
+- Step 6: Start server: ./server.sh
+- Step 7: Connect to the server with browser: firefox http://localhost:8080
 
 
 Files
 -----
-readme.md - this file
-webserver/sensors.input - example input file for testing
-webserver/server.py - contains the http server with poller thread for sensor feed
-webserver/templates/main.html - the main web page template
-webserver/static/justagage.js - justgage javascript code for html
-webserver/static/raphael-2.1.4.min.js - raphael javascript needed by justgage for html
-webserver/static/jquery-1.7.1.min.js - jquery javascripted needed by data feed for html
-arduino/server.c - the arduino weather station server
-arduino/receiver.c - the arduno weather station receiver
+- README.md - this file
+- webserver/sensors.input - example input file for testing
+- webserver/server.py - contains the http server with poller thread for sensor feed
+- webserver/templates/main.html - the main web page template
+- webserver/static/justagage.js - justgage javascript code for html
+- webserver/static/raphael-2.1.4.min.js - raphael javascript needed by justgage for html
+- webserver/static/jquery-1.7.1.min.js - jquery javascripted needed by data feed for html
+- arduino/server.c - the arduino weather station server
+- arduino/receiver.c - the arduno weather station receiver
